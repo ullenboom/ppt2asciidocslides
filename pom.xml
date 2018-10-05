@@ -2,7 +2,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.binarium</groupId>
+	<groupId>com.tutego</groupId>
 	<artifactId>ppt2asciidocslides</artifactId>
 	<version>1.0</version>
 	<properties>
@@ -14,12 +14,12 @@
 	<dependencies>
 
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.4</version>
-		</dependency>
-
+		<!-- <dependency> -->
+		<!-- <groupId>junit</groupId> -->
+		<!-- <artifactId>junit</artifactId> -->
+		<!-- <version>4.4</version> -->
+		<!-- <scope>test</scope> -->
+		<!-- </dependency> -->
 
 		<!-- https://mvnrepository.com/artifact/net.sf.jopt-simple/jopt-simple -->
 		<dependency>
@@ -54,7 +54,7 @@
 							<transformers>
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>ppt2asciidocslides.Ppt2Asciidocslides</mainClass>
+									<mainClass>com.tutego.ppt2asciidocslide.Main</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>
