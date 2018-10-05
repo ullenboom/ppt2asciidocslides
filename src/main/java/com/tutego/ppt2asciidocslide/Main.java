@@ -1,4 +1,4 @@
-package com.tutego.ppt2asciidocslides;
+package com.tutego.ppt2asciidocslide;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -10,7 +10,7 @@ import joptsimple.OptionParser;
  * 
  * @author Christian Ullenboom
  */
-public class Application {
+public class Main {
 
   public static void main( String[] args ) {
 

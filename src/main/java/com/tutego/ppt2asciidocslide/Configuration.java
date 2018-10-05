@@ -1,4 +1,4 @@
-package com.tutego.ppt2asciidocslides;
+package com.tutego.ppt2asciidocslide;
 
 import java.nio.file.Path;
 

@@ -1,4 +1,4 @@
-package com.tutego.ppt2asciidocslides;
+package com.tutego.ppt2asciidocslide;
 
 /**
  * Represents a simple Asciidoc slide with a title and a body.
