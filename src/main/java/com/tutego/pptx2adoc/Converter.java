@@ -1,4 +1,4 @@
-package com.tutego.ppt2asciidocslide;
+package com.tutego.pptx2adoc;
 
 import java.awt.Color;
 import java.io.IOException;
