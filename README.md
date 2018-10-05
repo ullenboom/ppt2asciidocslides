@@ -4,11 +4,16 @@ Asciidoc is a great tool for publishing technical information. Some time ago I c
 
 The converter is a command line tool written in Java. It uses Maven as a build tool and `org.apache.poi:poi-ooxml´ to access the raw PPTX files.
 
-From the command line use:
+In the _distribution_ folder is a batch file and a Jar. Either call:
 
-    $ java com.tutego.ppt2asciidocslide.Main Slide.pptx
+    $ java -jar pptx2adoc.jar Slide.pptx
 
-Use can use the option
+or
+
+    $ convert Slide.pptx
+
+
+Supported options:
 
 | Option      | Description  | Default  |
 | ----------- | ------------ | -------- |
