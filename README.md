@@ -18,5 +18,5 @@ Supported options:
 | Option      | Description  | Default  |
 | ----------- | ------------ | -------- |
 | output      | Specifies the target filename | Input filename and suffix _.adoc_ |
-| writeImages | If imagages get extracted and written or not | true |
+| writeImages | If images get extracted and written or not | true |
 | imageFolder | Folder for the generated images |  _Images_ |
