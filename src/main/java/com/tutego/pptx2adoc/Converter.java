@@ -21,7 +21,7 @@ import org.apache.poi.xslf.usermodel.XSLFTextRun;
 import org.apache.poi.xslf.usermodel.XSLFTextShape;
 
 /**
- * Converter from Microsoft PowerPoint to Asciidoc.
+ * Converter from Microsoft PowerPoint (PPTX) to Asciidoc.
  * 
  * @author Christian Ullenboom
  */
@@ -34,18 +34,28 @@ class Converter {
   }
 
   /**
-   * Reads a PPT slide from the configuration and writes an Asciidoc file.
+   * Reads a PPT file from the configuration and writes an Asciidoc file.
    * 
    * @throws IOException
    */
   void writePptSlides() throws IOException {
+    try ( var writer = Files.newBufferedWriter( configuration.output ) ) {
+      writePptSlides( writer );
+    }
+  }
+
+  /**
+   * Reads a PPT file from the configuration and writes into the given {@link Appendable}.
+   *
+   * @param output target of the Asciidoc
+   * @throws IOException
+   */
+  void writePptSlides( Appendable output ) throws IOException {
     // Read all PPT slides
     var slides = extractAllPptSlides( configuration.input );
     // Write all slides in Asciidoc format
-    try ( var writer = Files.newBufferedWriter( configuration.output ) ) {
-      for ( var slide : slides )
-        writer.write( slide.toString() );
-    }
+    for ( var slide : slides )
+      output.append( slide.toString() );
   }
 
   /**
@@ -73,8 +83,8 @@ class Converter {
   private Slide exctractPptSlide( XSLFSlide pptSlide ) {
     var slide = new Slide();
     Optional<XSLFTextShape> headerTextShape = getTextShapeByType( pptSlide, Placeholder.TITLE );
-    slide.title = headerTextShape.isPresent() ? ("\n== " + headerTextShape.get().getText() + "\n")
-                                              : "\n== KEINE ÜBERSCHRIFT\n";
+    slide.title = headerTextShape.isPresent() ? ("\n=== " + headerTextShape.get().getText() + "\n")
+                                              : "\n=== KEINE ÜBERSCHRIFT\n";
 
     var body = "";
     for ( var shape : pptSlide.getShapes() ) {
@@ -136,10 +146,7 @@ class Converter {
       for ( var textRun : pptPara ) {
         // Code?
         // TODO: some blanks get swallowed, so for now place a space in front.
-        SolidPaint solidPaint = (SolidPaint) textRun.getFontColor();
-        var color = solidPaint == null ? Color.BLACK : solidPaint.getSolidColor().getColor();
-        int gray = fromRGBtoGray( color.getRGB() );
-        if ( textRun.getFontFamily().equalsIgnoreCase( "Consolas" ) || gray > 20 )
+        if ( isProbablyCodeFont( textRun ) )
           para += "`" + textRun.getRawText() + "`";
         else
           para = convertFontAttributes( para, textRun );
@@ -182,10 +189,32 @@ class Converter {
 
     result = result.replaceAll( "," + "`" + "\\s", "," + " " + "`" );
 
-    // // Remove consequitive new lines
+    // // Remove consecutive new lines
     // result = result.replaceAll( "(\\r?\\n)+", "\n" );
 
     return result;
+  }
+
+  /**
+   * Checks if its probably a code font that should be framed in back ticks.
+   * @param textRun 
+   */
+  private static boolean isProbablyCodeFont( XSLFTextRun textRun ) {
+    // Was a fixed code font used? 
+    Pattern fixedFontPattern = Pattern.compile( "consolas|courier" );
+    Optional<String> fontFamily = Optional.ofNullable( textRun.getFontFamily() )
+                                          .map( String::toLowerCase )
+                                          .filter( fixedFontPattern.asPredicate() );
+    if ( fontFamily.isPresent() )
+      return true;
+
+    // Is a lighter color used? Assume it's a fixed font.
+    // Does not work for dark backgrounds though, but for me :)
+    SolidPaint solidPaint = (SolidPaint) textRun.getFontColor();
+    var color = solidPaint == null ? Color.BLACK : solidPaint.getSolidColor().getColor();
+    int gray = fromRGBtoGray( color.getRGB() );
+
+    return gray > 20;
   }
 
   /**
@@ -198,12 +227,12 @@ class Converter {
   private static String convertFontAttributes( String para, XSLFTextRun text ) {
     var stack = new Stack<String>();
     if ( text.isBold() ) {
-      para += "**";
-      stack.add( "**" );
+      para += "*";
+      stack.add( "*" );
     }
     if ( text.isItalic() ) {
-      para += "__";
-      stack.add( "__" );
+      para += "_";
+      stack.add( "_" );
     }
     if ( text.isSubscript() ) {
       para += "~";

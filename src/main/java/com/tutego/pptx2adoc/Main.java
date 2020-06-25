@@ -12,7 +12,7 @@ import joptsimple.OptionParser;
  */
 public class Main {
 
-  public static void main( String[] args ) {
+  public static void main( String... args ) {
 
     /*
      * Options: -i noimages -h help -v Version Operands: Input Output Imagefolder
@@ -39,6 +39,12 @@ public class Main {
       }
 
       configuration.input = Paths.get( arguments.get( 0 ).toString() ).toAbsolutePath();
+
+      if ( configuration.input.toString().toLowerCase().endsWith( ".ppt" ) ) {
+        printHelp = true;
+        System.err.printf( "This tool can only process PPTX fiedes. Please convert your PPT to PPTX." );
+        return;
+      }
 
       if ( options.has( "output" ) )
         configuration.output = Paths.get( options.valueOf( "output" ).toString() ).toAbsolutePath();

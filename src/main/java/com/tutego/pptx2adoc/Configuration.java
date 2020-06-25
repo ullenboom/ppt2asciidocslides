@@ -3,7 +3,7 @@ package com.tutego.pptx2adoc;
 import java.nio.file.Path;
 
 /**
- * Holds configuration for the options on the command line.
+ * Holds configuration for the options of the command line.
  * 
  * @author Christian Ullenboom
  */
