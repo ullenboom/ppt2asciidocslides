@@ -1,10 +1,9 @@
 package com.tutego.adoc.dom.text;
 
-public class Text {
-    enum style {NORMAL, BOLD, ITALIC, MARKED, UNDERLINED, CROSSED}
-    style[] styles;
+public class Text{
+    Style[] styles;
     String text;
-    public Text(String text, style... styles){
+    public Text(String text, Style... styles){
         this.text = text;
         this.styles = styles;
     }

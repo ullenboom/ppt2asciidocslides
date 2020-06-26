@@ -5,4 +5,7 @@ public class Block{
     public Block(String text){
         this.text = text;
     }
+    public String toAdoc(){
+        return null;
+    }
 }

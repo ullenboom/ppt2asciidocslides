@@ -9,4 +9,8 @@ public class CodeBlock extends Block{
         super(text);
         this.languages = Arrays.asList(languages);
     }
+    public String toAdoc(){
+        return null;
+    }
+
 }

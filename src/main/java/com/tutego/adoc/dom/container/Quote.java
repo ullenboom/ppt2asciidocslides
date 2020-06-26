@@ -10,4 +10,8 @@ public class Quote {
         this.author = author;
         this.reference = reference;
     }
+
+    public String toAdoc(){
+        return null;
+    }
 }

@@ -1,12 +1,14 @@
 package com.tutego.adoc.dom.text;
 
-import java.util.List;
-
-public class Title extends Paragraph {
+public class Title{
     int layer; // 0 = DocumentHeader
-    public Title(List<Text> texts, int layer){
-        super(texts);
+    Paragraph text;
+    public Title(Paragraph text, int layer){
         this.layer = layer;
+        this.text = text;
+    }
+    public Title(String text, int layer){
+        this.text = new Paragraph(text);
     }
 
     public String toAdoc(){
