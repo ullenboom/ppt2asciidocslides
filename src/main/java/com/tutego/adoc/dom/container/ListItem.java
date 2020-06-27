@@ -6,13 +6,15 @@ import com.tutego.adoc.dom.text.Text;
 import java.util.List;
 
 public class ListItem extends Paragraph {
-    int indent;
-    public ListItem(List<Text> texts, int indent){
-        super(texts);
-        this.indent = indent;
-    }
-    public String toAdoc(){
-        return null;
-    }
+  int indent;
+
+  public ListItem( int indent, Text... texts ) {
+    super( texts );
+    this.indent = indent;
+  }
+
+  public String toAdoc() {
+    return null;
+  }
 
 }

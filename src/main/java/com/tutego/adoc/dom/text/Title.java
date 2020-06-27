@@ -1,6 +1,8 @@
 package com.tutego.adoc.dom.text;
 
-public class Title{
+import com.tutego.adoc.dom.Content;
+
+public class Title implements Content {
     int layer; // 0 = DocumentHeader
     Paragraph text;
     public Title(Paragraph text, int layer){
@@ -11,7 +13,8 @@ public class Title{
         this.text = new Paragraph(text);
     }
 
-    public String toAdoc(){
+    @Override
+    public String toAdoc() {
         return null;
     }
 }
