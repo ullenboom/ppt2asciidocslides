@@ -17,4 +17,8 @@ public class Document implements Content{
     public String toAdoc(){
         return null;
     }
+
+    @Override
+    public void validate() {
+    }
 }
