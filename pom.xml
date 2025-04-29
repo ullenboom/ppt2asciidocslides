@@ -1,73 +1,79 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.tutego</groupId>
-	<artifactId>pptx2asciidocslides</artifactId>
-	<version>1.0</version>
-	<properties>
-		<maven.compiler.source>11</maven.compiler.source>
-		<maven.compiler.target>11</maven.compiler.target>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.tutego</groupId>
+  <artifactId>pptx2asciidocslides</artifactId>
+  <version>1.1</version>
+  <properties>
+    <maven.compiler.release>21</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-	<dependencies>
+    <jopt-simple.version>5.0.4</jopt-simple.version>
+    <poi-ooxml.version>5.4.0</poi-ooxml.version>
+    <log4j-core.version>2.23.1</log4j-core.version>
 
-		<!-- https://mvnrepository.com/artifact/junit/junit -->
-		<!-- <dependency> -->
-		<!-- <groupId>junit</groupId> -->
-		<!-- <artifactId>junit</artifactId> -->
-		<!-- <version>4.4</version> -->
-		<!-- <scope>test</scope> -->
-		<!-- </dependency> -->
+    <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+    <maven-shade-plugin.version>3.6.0</maven-shade-plugin.version>
+  </properties>
 
-		<!-- https://mvnrepository.com/artifact/net.sf.jopt-simple/jopt-simple -->
-		<dependency>
-			<groupId>net.sf.jopt-simple</groupId>
-			<artifactId>jopt-simple</artifactId>
-			<version>5.0.4</version>
-		</dependency>
+  <dependencies>
 
-		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
-			<version>4.0.1</version>
-		</dependency>
+    <!-- https://mvnrepository.com/artifact/net.sf.jopt-simple/jopt-simple -->
+    <dependency>
+      <groupId>net.sf.jopt-simple</groupId>
+      <artifactId>jopt-simple</artifactId>
+      <version>${jopt-simple.version}</version>
+    </dependency>
 
-	</dependencies>
+    <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>${poi-ooxml.version}</version>
+    </dependency>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.2.0</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-						<configuration>
-							<finalName>pptx2adoc</finalName>
-							<outputDirectory>distribution</outputDirectory>
-							<!-- <minimizeJar>true</minimizeJar> -->
-							<transformers>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>com.tutego.pptx2adoc.Main</mainClass>
-								</transformer>
-							</transformers>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.6.0</version>
-			</plugin>
-		</plugins>
-	</build>
+    <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j-core.version}</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>${maven-shade-plugin.version}</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <finalName>pptx2adoc</finalName>
+              <outputDirectory>distribution</outputDirectory>
+              <!-- <minimizeJar>true</minimizeJar> -->
+              <transformers>
+                <transformer
+                    implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>com.tutego.pptx2adoc.Main</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
