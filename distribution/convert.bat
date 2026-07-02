@@ -1,2 +1,2 @@
 @echo off
-java -jar pptx2adoc.jar %*
+java -jar pptx2markdown.jar %*
