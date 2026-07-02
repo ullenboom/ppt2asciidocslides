@@ -6,12 +6,12 @@
   <artifactId>pptx2asciidocslides</artifactId>
   <version>1.1</version>
   <properties>
-    <maven.compiler.release>21</maven.compiler.release>
+    <maven.compiler.release>25</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <jopt-simple.version>5.0.4</jopt-simple.version>
-    <poi-ooxml.version>5.4.0</poi-ooxml.version>
-    <log4j-core.version>2.23.1</log4j-core.version>
+    <poi-ooxml.version>5.5.1</poi-ooxml.version>
+    <log4j-core.version>2.26.0</log4j-core.version>
 
     <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
     <maven-shade-plugin.version>3.6.0</maven-shade-plugin.version>
@@ -61,7 +61,7 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <finalName>pptx2adoc</finalName>
+              <finalName>pptx2markdown</finalName>
               <outputDirectory>distribution</outputDirectory>
               <!-- <minimizeJar>true</minimizeJar> -->
               <transformers>

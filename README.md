@@ -1,22 +1,32 @@
-# PPT to Asciidoc converter
+# PPTX to Markdown converter
 
-Asciidoc is a great tool for publishing technical information. Some time ago I changed my presentation slides from PowerPoint to Asciidoc. Because I had so many PPT slides I wrote this converter to get a first draft.
+This command-line tool converts PowerPoint `.pptx` files into Markdown-based slide documents. It was originally built to migrate large decks of PowerPoint slides to AsciiDoc, but now supports multiple output formats.
 
-The converter is a command line tool written in Java. It uses Maven as a build tool and `org.apache.poi:poi-ooxml´ to access the raw PPTX files.
+The converter reads PPTX files via `org.apache.poi:poi-ooxml` and transforms them into a renderer-neutral DOM. A pluggable `DocumentWriter` then renders the DOM to the selected markup language. Currently two formats are supported:
+
+- **AsciiDoc** (`.adoc`) — the original output format, suited for technical publishing.
+- **Marp** (`.md`) — [CommonMark](https://commonmark.org/) with [Marpit](https://marpit.marp.app/) slide directives, suited for generating slide decks with the [Marp ecosystem](https://marp.app/).
+
+## Usage
 
 In the _distribution_ folder is a batch file and a Jar. Either call:
 
-    $ java -jar pptx2adoc.jar Slide.pptx
+    $ java -jar pptx2markdown.jar Slide.pptx
 
 or
 
     $ convert Slide.pptx
 
+By default the converter produces AsciiDoc output. Use the `--format` option to choose the output format:
 
-Supported options:
+    $ java -jar pptx2markdown.jar --format marp Slide.pptx
 
-| Option      | Description  | Default  |
-| ----------- | ------------ | -------- |
-| output      | Specifies the target filename | Input filename and suffix _.adoc_ |
-| writeImages | If imagages get extracted and written or not | true |
-| imageFolder | Folder for the generated images |  _Images_ |
+## Supported options
+
+| Option        | Description                                          | Default                        |
+| ------------- | ---------------------------------------------------- | ------------------------------ |
+| `--format`    | Output format: `adoc` (AsciiDoc) or `marp` (Marp)   | `adoc`                         |
+| `--target`    | Target filename                                      | Input filename, suffix swapped |
+| `--imagefolder` | Folder for extracted images                        | `images`                       |
+| `--noimages`  | Skip image extraction                                | _images enabled_               |
+| `--help`      | Show help                                            |                                |
